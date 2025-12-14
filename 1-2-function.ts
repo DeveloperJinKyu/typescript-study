@@ -56,6 +56,8 @@
   defaultParameters('John', 'doe');
 
   // Rest Parameters
+  // Rest Parameters는 함수의 파라미터 개수를 정해놓지 않고, 동적으로 파라미터를 받을 수 있다.
+  // Rest Parameters는 함수의 마지막 인자로만 사용할 수 있다.
   function addNumbers(...numbers: number[]): number {
     return numbers.reduce((acc, curr) => acc + curr, 0);
   }
