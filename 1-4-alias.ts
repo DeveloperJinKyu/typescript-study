@@ -13,8 +13,11 @@
     age: 12,
   }
 
-  // String Literal Types: 타입을 문자열로 지정
+  // String Literal Types: 타입을 문자열로 지정 -> Union 타입에서 유용하게 사용 가능
   type Name = 'name';
   let jinkyuName: Name;
   jinkyuName = 'name';
+
+  type Boal = true;
+  const isCat: Boal = true;
 }
