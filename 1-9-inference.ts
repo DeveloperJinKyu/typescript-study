@@ -11,6 +11,12 @@
   function print2 (message = 'default message'){
     console.log(message);
   }
+
+  // function의 파라미터 값이 모두 number 타입이면 반환값도 자동으로 number 타입으로 추론된다.
+  function add (x: number, y: number){
+    return x + y;
+  }
+  console.log(add(1, 2));
+
+  // 원시 타입처럼 아주 간단한 타입 추론이 가능한 경우라면 타입 추론을 사용하고, 복잡해지면 타입 지정을 사용한다.
 }
-
-
