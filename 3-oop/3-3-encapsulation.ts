@@ -41,8 +41,35 @@
     }
   }
 
-  const maker = CoffeeMaker.makeMachine(7);
-  maker.fillCoffeeBean(7);
-  console.log(maker.makeCoffee(2));
+  // const maker = CoffeeMaker.makeMachine(7);
+  // maker.fillCoffeeBean(7);
+  // console.log(maker.makeCoffee(2));
 
+  // Getter & Setter
+  class User{
+    // Getter는 호출한 시점에 접근한다.
+    // 함수 형태로 선언하고 사용할 때는 일반 멤버 변수처럼 사용한다.
+    get fullName(): string{
+      return `${this.firstName} ${this.lastName}`;
+    }
+    private internalAge = 4;
+    get age(): number{
+      return this.internalAge;
+    }
+    set age(num: number){
+      if(num < 0){
+        throw new Error('유효한 나이값이 아닙니다.');
+      }
+      this.internalAge = num;
+    }
+    // 생성자 함수 인자에 private를 붙이면 자동으로 외부에서 생성할 때 전달받은 값이 내부 private 변수로 선언 및 할당된다.
+    constructor(private firstName: string, private lastName: string){
+    }
+  }
+
+  const user = new User('jinkyu','kim');
+  console.log(user.fullName);
+  console.log(user.age);
+  user.age = 6;
+  console.log(user.age);
 }
