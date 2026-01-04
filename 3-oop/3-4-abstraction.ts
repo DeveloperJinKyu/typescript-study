@@ -10,11 +10,16 @@
   // 추상화는 private 접근 제어자를 사용하는 방법과 interface를 사용하는 방법 이렇게 2가지가 있다.
 
   interface CoffeeMaker {
-    fillCoffeeBean(coffeeBeans: number): void;
     makeCoffee(shots: number): CoffeeCup;
   }
 
-  class CoffeeMachine implements CoffeeMaker{
+  interface CommercialCoffeeMaker {
+    makeCoffee(shots: number): CoffeeCup;
+    fillCoffeeBean(coffeeBeans: number): void;
+    clean(): void;
+  }
+
+  class CoffeeMachine implements CoffeeMaker, CommercialCoffeeMaker{
     private static BEANS_GRAM_PER_SHOT: number = 7; 
     private coffeeBeans: number = 0; 
 
@@ -60,14 +65,37 @@
       this.preheat();
       return this.extract(shots);
     }
+
+    clean(): void {
+        console.log('커피 머신기를 소독중...🧼');
+    }
   }
 
-  const maker = CoffeeMachine.makeMachine(7);
-  maker.fillCoffeeBean(21);
-  console.log(maker.makeCoffee(2));
+  class AmateurUser {
+    constructor(private machine: CoffeeMaker){}
 
-  const maker2: CoffeeMaker = CoffeeMachine.makeMachine(7);
-  maker2.fillCoffeeBean(14);
-  console.log(maker2.makeCoffee(2));
+    makeCoffee(){
+      const coffee = this.machine.makeCoffee(2);
+      console.log(coffee);
+    }
+  }
 
+  class ProBarista {
+    constructor(private machine: CommercialCoffeeMaker) {}
+    makeCoffee(){
+      const coffee = this.machine.makeCoffee(2);
+      console.log(coffee);
+      this.machine.fillCoffeeBean(21);
+      this.machine.clean();
+    }
+  }
+
+  const maker: CoffeeMachine = CoffeeMachine.makeMachine(21);
+  const amateure = new AmateurUser(maker);
+  const pro = new ProBarista(maker);
+  // amateure.makeCoffee();
+  pro.makeCoffee();
+  
+  // amature와 pro 클래스의 interface를 다르게 적용하여 같은 maker 클래스를 받아도
+  // 사용할 수 있는 메서드의 범위를 제한할 수 있다.
 }
